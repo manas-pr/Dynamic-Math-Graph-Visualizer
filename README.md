@@ -21,7 +21,7 @@ Easily visualize **Cartesian, Parametric, Polar, and 3D Surface** equations dyna
 
 ## 🔧 Installation  
 1. Clone this repository:  
-   git clone https://github.com/yourusername/math-graph-generator.git
+   git clone [https://github.com/manas-pr/Dynamic-Math-Graph-Visualizer/tree/main]
    cd math-graph-generator   
    
 2. Install dependencies:  
