@@ -4,53 +4,53 @@ import pandas as pd
 import altair as alt
 import plotly.graph_objects as go
 
-# Set background image and selective text styling using CSS
-page_bg_img = """
-<style>
-.stApp {
-    background-image: url("https://developer-blogs.nvidia.com/wp-content/uploads/2023/06/deep-learning-visual.png");
-    background-size: cover;
-    background-attachment: fixed;
-}
-
-/* Set specific labels to white */
-div[data-testid="stFileUploader"] label,
-div[data-testid="stTextInput"] label,
-div[data-testid="stTextArea"] label {
-    color: white !important;
-    font-weight: bold;
-}
-</style>
+# Custom CSS for fixing sidebar
+sidebar_style = """
+    <style>
+        [data-testid="stSidebarContent"] {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 300px;
+            height: 100vh;
+            background-color: #0E1117 !important;
+            overflow-y: auto;
+        }
+        [data-testid="stSidebar"] {
+            width: 300px !important;
+        }
+    </style>
 """
-st.markdown(page_bg_img, unsafe_allow_html=True)
+st.markdown(sidebar_style, unsafe_allow_html=True)
+
+# Sidebar Content (Fixed)
+with st.sidebar:
+    st.header("📌 Navigation")
+    equation_type = st.radio(
+        "Choose the equation type:",
+        ["Cartesian (y = f(x))", "Parametric (x = f(t), y = g(t))", "Polar (r = f(θ))", "3D Surface (z = f(x, y))"]
+    )
+
+    # Developer Section
+    st.markdown("---")
+    st.subheader("👨‍💻 About the Developer")
+    st.markdown("""
+    **Manas Pratim Das**  
+    🎓 *Electronics and Communication Engineering (MTech/MS)*  
+
+    🤖 **Focus Areas:**  
+           ✅ Artificial Intelligence & Machine Learning  
+           ✅ Deep Learning & Secure Computing  
+           ✅ Neuromorphic Computing  
+
+    📌 **Connect with Me:**  
+    🔗 [LinkedIn](https://www.linkedin.com/in/manas-pratim-das-b95200197/)     
+    🐙 [GitHub](https://github.com/manas-pr)     
+    📧 [Email](mailto:manas.pr94@gmail.com)     
+    """)
 
 # App title
 st.title("🔢📈 Dynamic Math Graph Visualizer")
-
-# Sidebar options
-st.sidebar.header("📌 Navigation")
-equation_type = st.sidebar.radio(
-    "Choose the equation type:",
-    ["Cartesian (y = f(x))", "Parametric (x = f(t), y = g(t))", "Polar (r = f(θ))", "3D Surface (z = f(x, y))"]
-)
-
-# Developer Section
-st.sidebar.markdown("---")
-st.sidebar.subheader("👨‍💻 About the Developer")
-st.sidebar.markdown("""
-**Manas Pratim Das**  
-🎓 *Electronics and Communication Engineering (MTech/MS)*  
-
-🤖 **Focus Areas:**  
-       ✅ Artificial Intelligence & Machine Learning  
-       ✅ Deep Learning & Secure Computing  
-       ✅ Neuromorphic Computing  
-
-📌 **Connect with Me:**  
-🔗 [LinkedIn](https://www.linkedin.com/in/manas-pratim-das-b95200197/)     
-🐙 [GitHub](https://github.com/manas-pr)     
-📧 [Email](mailto:manas.pr94@gmail.com)     
-""")
 
 # Cartesian Graph (y = f(x))
 if equation_type == "Cartesian (y = f(x))":
