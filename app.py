@@ -1,55 +1,75 @@
-### **Title:** 🔢📈 Dynamic Math Graph Visualizer  
+import streamlit as st
+import numpy as np
+import pandas as pd
+import altair as alt
+import plotly.graph_objects as go
 
-### **Short Description:**  
-Unleash the power of mathematics with this interactive **Graph Generator**! 🧮📈 Visualize **Cartesian, Parametric, Polar, and 3D Surface** equations dynamically. Simply enter your mathematical expression, tweak the parameters, and watch your graph come to life! 🚀🎨  
+# App title
+st.title("🔢📈 Dynamic Math Graph Visualizer")
 
----
+# User selects graph type
+equation_type = st.selectbox(
+    "Choose the equation type:",
+    ["Cartesian (y = f(x))", "Parametric (x = f(t), y = g(t))", "Polar (r = f(θ))", "3D Surface (z = f(x, y))"]
+)
 
-### **README.md**  
+# Cartesian Graph (y = f(x))
+if equation_type == "Cartesian (y = f(x))":
+    equation = st.text_input("Enter the equation (use 'x' as the variable):", "x**2")
+    x_min, x_max = st.slider("Select x range:", -10.0, 10.0, (-5.0, 5.0))
+    x_vals = np.linspace(x_min, x_max, 400)
 
-```md
-# 🔢📈 Dynamic Math Graph Visualizer  
+    try:
+        y_vals = [eval(equation, {"x": x, "np": np}) for x in x_vals]
+        data = pd.DataFrame({"x": x_vals, "y": y_vals})
+        chart = alt.Chart(data).mark_line(color='blue').encode(x='x:Q', y='y:Q')
+        st.altair_chart(chart, use_container_width=True)
+    except Exception as e:
+        st.error(f"Error in equation: {e}")
 
-Unleash the beauty of mathematics with this interactive **Graph Generator**! 🧮📈  
-Easily visualize **Cartesian, Parametric, Polar, and 3D Surface** equations dynamically with real-time updates.  
+# Parametric Graph (x = f(t), y = g(t))
+elif equation_type == "Parametric (x = f(t), y = g(t))":
+    eq_x = st.text_input("Enter the x equation (use 't' as the variable):", "np.sin(t)")
+    eq_y = st.text_input("Enter the y equation (use 't' as the variable):", "np.cos(t)")
+    t_min, t_max = st.slider("Select t range:", -10.0, 10.0, (-5.0, 5.0))
+    t_vals = np.linspace(t_min, t_max, 400)
 
-## 🚀 Features  
-✅ Supports **4 types of graphs**:  
-   - 📈 **Cartesian (y = f(x))**  
-   - 🔄 **Parametric (x = f(t), y = g(t))**  
-   - 🌀 **Polar (r = f(θ))**  
-   - 🌍 **3D Surface (z = f(x, y))**  
-✅ Interactive sliders for variable range selection  
-✅ **Real-time graph visualization** using Altair & Plotly  
-✅ **Simple & User-friendly** interface  
+    try:
+        x_vals = [eval(eq_x, {"t": t, "np": np}) for t in t_vals]
+        y_vals = [eval(eq_y, {"t": t, "np": np}) for t in t_vals]
+        data = pd.DataFrame({"x": x_vals, "y": y_vals})
+        chart = alt.Chart(data).mark_line(color='red').encode(x='x:Q', y='y:Q')
+        st.altair_chart(chart, use_container_width=True)
+    except Exception as e:
+        st.error(f"Error in equations: {e}")
 
-## 🔧 Installation  
-1. Clone this repository:  
-   ```sh
-   git clone https://github.com/yourusername/math-graph-generator.git
-   cd math-graph-generator
-   ```
-2. Install dependencies:  
-   ```sh
-   pip install -r requirements.txt
-   ```
-3. Run the app:  
-   ```sh
-   streamlit run app.py
-   ```
+# Polar Graph (r = f(θ))
+elif equation_type == "Polar (r = f(θ))":
+    equation = st.text_input("Enter the polar equation (use 'theta' as the variable):", "1 + np.sin(4*theta)")
+    theta_vals = np.linspace(0, 2 * np.pi, 400)
 
-## 🎭 Usage  
-- Select the **type of graph** you want to generate  
-- Enter your **mathematical equation** using `x`, `t`, `theta`, or `y` as variables  
-- Adjust the **variable range** using sliders  
-- Watch your **graph update in real-time**! 🎉  
+    try:
+        r_vals = [eval(equation, {"theta": theta, "np": np}) for theta in theta_vals]
+        x_vals = r_vals * np.cos(theta_vals)
+        y_vals = r_vals * np.sin(theta_vals)
+        data = pd.DataFrame({"x": x_vals, "y": y_vals})
+        chart = alt.Chart(data).mark_line(color='green').encode(x='x:Q', y='y:Q')
+        st.altair_chart(chart, use_container_width=True)
+    except Exception as e:
+        st.error(f"Error in equation: {e}")
 
-## 🖼️ Preview  
-![Graph Preview](screenshot.png)  
+# 3D Surface Plot (z = f(x, y))
+elif equation_type == "3D Surface (z = f(x, y))":
+    equation = st.text_input("Enter the 3D surface equation (use 'x' and 'y' as variables):", "np.sin(np.sqrt(x**2 + y**2))")
+    x_range = np.linspace(-5, 5, 50)
+    y_range = np.linspace(-5, 5, 50)
+    X, Y = np.meshgrid(x_range, y_range)
 
-## 📜 License  
-This project is licensed under the MIT License.  
+    try:
+        Z = eval(equation, {"x": X, "y": Y, "np": np})
+        fig = go.Figure(data=[go.Surface(z=Z, x=X, y=Y)])
+        st.plotly_chart(fig, use_container_width=True)
+    except Exception as e:
+        st.error(f"Error in equation: {e}")
 
----  
-🚀 Have fun exploring the beauty of **mathematics and visualization**! 🎨📊  
-```
+st.write("🎨 Enter mathematical expressions to visualize graphs dynamically!")
