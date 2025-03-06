@@ -5,6 +5,7 @@ import altair as alt
 import plotly.graph_objects as go
 
 # Custom CSS for fixing sidebar
+# Custom CSS for fixing sidebar background color to white
 sidebar_style = """
     <style>
         [data-testid="stSidebarContent"] {
@@ -13,15 +14,20 @@ sidebar_style = """
             left: 0;
             width: 300px;
             height: 100vh;
-            background-color: #0E1117 !important;
+            background-color: #FFFFFF !important;  /* White background */
             overflow-y: auto;
         }
         [data-testid="stSidebar"] {
             width: 300px !important;
         }
+        /* Change sidebar text color to black for better visibility */
+        [data-testid="stSidebarContent"] * {
+            color: black !important;
+        }
     </style>
 """
 st.markdown(sidebar_style, unsafe_allow_html=True)
+
 
 # Sidebar Content (Fixed)
 with st.sidebar:
