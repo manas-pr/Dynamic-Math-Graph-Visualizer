@@ -21,16 +21,13 @@ Easily visualize **Cartesian, Parametric, Polar, and 3D Surface** equations dyna
 
 ## 🔧 Installation  
 1. Clone this repository:  
-   ```sh
    git clone https://github.com/yourusername/math-graph-generator.git
    cd math-graph-generator   
    
 2. Install dependencies:  
-   ```sh
    pip install -r requirements.txt   
    
 3. Run the app:  
-   ```sh
    streamlit run app.py
    ```
 
