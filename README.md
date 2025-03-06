@@ -29,7 +29,7 @@ Easily visualize **Cartesian, Parametric, Polar, and 3D Surface** equations dyna
    streamlit run app.py
 
 ---
-🎭 Usage
+## 🎭 Usage
 Select the type of graph you want to generate   
 Enter your mathematical equation using x, t, theta, or y as variables   
 Adjust the variable range using sliders   
