@@ -4,6 +4,7 @@ Unleash the power of mathematics with this interactive Graph Generator! 🧮📈
 Unleash the beauty of mathematics with this interactive **Graph Generator**! 🧮📈  
 Easily visualize **Cartesian, Parametric, Polar, and 3D Surface** equations dynamically with real-time updates.  
 
+---
 ## 🚀 Features  
 ✅ Supports **4 types of graphs**:  
    - 📈 **Cartesian (y = f(x))**  
@@ -14,14 +15,22 @@ Easily visualize **Cartesian, Parametric, Polar, and 3D Surface** equations dyna
 ✅ **Real-time graph visualization** using Altair & Plotly  
 ✅ **Simple & User-friendly** interface  
 
+---
 ## 🔧 Installation  
 1. Clone this repository:  
    ```sh
    git clone https://github.com/yourusername/math-graph-generator.git
    cd math-graph-generator
-   
+---   
 2. Install dependencies:
    pip install -r requirements.txt
-   
+---     
 4. Run the app:
    streamlit run app.py
+
+---
+🎭 Usage
+Select the type of graph you want to generate
+Enter your mathematical equation using x, t, theta, or y as variables
+Adjust the variable range using sliders
+Watch your graph update in real-time! 🎉
